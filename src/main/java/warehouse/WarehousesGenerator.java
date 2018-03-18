@@ -14,16 +14,16 @@ public class WarehousesGenerator {
     private static final int MAX_NUMBER_OF_ITEMS = 10;
     private static final char[] CHARACTERS = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'J', 'K'};
     private static final String PATH_TO_FILE_NAMES = "src/main/resources/names";
-    private final List<String> names;
     private static final Random random = new Random();
+    private final List<String> names;
+    private static int generatedWarehouses = 0;
 
     public WarehousesGenerator() {
         names = initializeNames();
     }
 
     public Warehouse generateWarehouse() {
-        int randomName = random.nextInt(names.size());
-        String randomWarehouseName = names.get(randomName);
+        String randomWarehouseName = names.get(generatedWarehouses++);
         List<Item> randomItems = generateItems();
         return new Warehouse(randomWarehouseName, randomItems);
     }
@@ -40,7 +40,7 @@ public class WarehousesGenerator {
     }
 
     private List<String> initializeNames() {
-        List<String> names = new ArrayList<>(MAX_NUMBER_OF_ITEMS);
+        List<String> names = new ArrayList<>(10);
         try {
             File fileWithNames = new File(PATH_TO_FILE_NAMES);
             Scanner scanner = new Scanner(fileWithNames);
