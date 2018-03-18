@@ -29,6 +29,14 @@ public class WarehouseApplication implements WarehouseRepository {
 
     @Override
     public Warehouse findOne(String name) {
-        return warehouses.stream().filter(warehouse -> warehouse.getName().equals(name)).findFirst().orElse(null);
+        return warehouses
+                .stream()
+                .filter(
+                        warehouse -> warehouse
+                                .getName()
+                                .equals(name))
+                .findFirst()
+                .orElse(null);
     }
+
 }
