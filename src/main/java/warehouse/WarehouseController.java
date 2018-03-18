@@ -26,4 +26,31 @@ public class WarehouseController {
     public Warehouse findOne(@PathVariable String warehouseName) {
         return warehouseRepository.findOne(warehouseName);
     }
+
+    @GetMapping("{warehouseName}/items/{itemId:\\d+}")
+    public Item findItemWithId(@PathVariable String warehouseName,
+                               @PathVariable int itemId) {
+        return warehouseRepository
+                .findOne(warehouseName)
+                .getItems()
+                .stream()
+                .filter(
+                        item -> item.getId() == itemId)
+                .findFirst()
+                .orElse(null);
+    }
+
+
+    @GetMapping("{warehouseName}/items/{itemName:[A-Z]-?\\d+}")
+    public Item findItemWithName(@PathVariable String warehouseName,
+                                 @PathVariable String itemName) {
+        return warehouseRepository
+                .findOne(warehouseName)
+                .getItems()
+                .stream()
+                .filter(
+                        item -> item.getName().equals(itemName))
+                .findFirst()
+                .orElse(null);
+    }
 }
