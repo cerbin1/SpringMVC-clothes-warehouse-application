@@ -1,10 +1,7 @@
 package warehouse;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +24,11 @@ public class WarehouseController {
         return warehouseRepository.findOne(warehouseName);
     }
 
+    @GetMapping("{warehouseName}/items")
+    public List<Item> findItems(@PathVariable String warehouseName) {
+        return findOne(warehouseName).getItems();
+    }
+
     @GetMapping("{warehouseName}/items/{itemId:\\d+}")
     public Item findItemWithId(@PathVariable String warehouseName,
                                @PathVariable int itemId) {
@@ -39,7 +41,6 @@ public class WarehouseController {
                 .findFirst()
                 .orElse(null);
     }
-
 
     @GetMapping("{warehouseName}/items/{itemName:[A-Z]-?\\d+}")
     public Item findItemWithName(@PathVariable String warehouseName,
