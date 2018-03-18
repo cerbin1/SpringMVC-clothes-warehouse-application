@@ -90,7 +90,12 @@ public class WarehouseController {
     ) {
         Warehouse warehouse = warehouseRepository.findOne(warehouseName);
         Item deletedItem = warehouse.getItemWithId(itemId);
-        List<Item> items = warehouse.getItems().stream().filter(item -> item.getId() != itemId).collect(Collectors.toList());
+        List<Item> items = warehouse
+                .getItems()
+                .stream()
+                .filter(
+                        item -> item.getId() != itemId)
+                .collect(Collectors.toList());
         warehouse.setItems(items);
         return deletedItem;
     }

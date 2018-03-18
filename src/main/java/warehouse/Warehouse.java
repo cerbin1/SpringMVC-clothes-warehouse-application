@@ -24,6 +24,10 @@ public class Warehouse {
     }
 
     public Item getItemWithId(int id) {
-        return items.stream().filter(item -> item.getId() == id).findFirst().orElse(null);
+        return items
+                .stream()
+                .filter(item -> item.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 }
