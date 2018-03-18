@@ -18,4 +18,12 @@ public class Warehouse {
     public List<Item> getItems() {
         return items;
     }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public Item getItemWithId(int id) {
+        return items.stream().filter(item -> item.getId() == id).findFirst().orElse(null);
+    }
 }
