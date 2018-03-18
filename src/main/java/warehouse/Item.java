@@ -1,21 +1,20 @@
 package warehouse;
 
 public class Item {
+    private static int nextId = 0;
+
     private int id;
     private String name;
     private int quantity;
 
     public Item(String name, int quantity) {
+        this.id = getNextId();
         this.name = name;
         this.quantity = quantity;
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -32,5 +31,9 @@ public class Item {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public static int getNextId() {
+        return nextId++;
     }
 }
