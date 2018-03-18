@@ -1,5 +1,7 @@
 package warehouse;
 
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+@Service
 public class WarehousesGenerator {
     private static final int MAX_NUMBER_OF_ITEMS = 10;
     private static final char[] CHARACTERS = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'J', 'K'};
