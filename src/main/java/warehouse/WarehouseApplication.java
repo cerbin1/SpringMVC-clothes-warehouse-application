@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Repository
 public class WarehouseApplication implements WarehouseRepository {
@@ -17,7 +18,7 @@ public class WarehouseApplication implements WarehouseRepository {
 
     private void generateWarehouses() {
         warehouses = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < new Random().nextInt(10); i++) {
             warehouses.add(warehousesGenerator.generateWarehouse());
         }
     }
