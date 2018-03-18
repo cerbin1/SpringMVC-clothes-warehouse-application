@@ -26,4 +26,9 @@ public class WarehouseApplication implements WarehouseRepository {
     public List<Warehouse> findAll() {
         return warehouses;
     }
+
+    @Override
+    public Warehouse findOne(String name) {
+        return warehouses.stream().filter(warehouse -> warehouse.getName().equals(name)).findFirst().orElse(null);
+    }
 }
