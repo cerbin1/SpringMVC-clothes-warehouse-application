@@ -22,4 +22,8 @@ public class WarehouseService {
     public Warehouse getWarehouse(String name) {
         return warehouseRepository.findById(name).orElse(null);
     }
+
+    public Warehouse addWarehouse(Warehouse warehouse) {
+        return warehouseRepository.save(warehouse);
+    }
 }

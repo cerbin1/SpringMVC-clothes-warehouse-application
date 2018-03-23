@@ -1,10 +1,7 @@
 package warehouse;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +24,10 @@ public class WarehouseController {
         return warehouseService.getWarehouse(warehouseName);
     }
 
+    @PostMapping
+    public Warehouse addWarehouse(@RequestBody Warehouse warehouse) {
+        return warehouseService.addWarehouse(warehouse);
+    }
 
 /*
     @GetMapping("{warehouseName}/items")
