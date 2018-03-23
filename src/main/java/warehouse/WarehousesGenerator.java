@@ -24,17 +24,17 @@ public class WarehousesGenerator {
 
     public Warehouse generateWarehouse() {
         String randomWarehouseName = names.get(generatedWarehouses++);
-        List<Item> randomItems = generateItems();
-        return new Warehouse(randomWarehouseName, randomItems);
+        List<Item> randomItems = generateItems(randomWarehouseName);
+        return new Warehouse(randomWarehouseName);
     }
 
-    private List<Item> generateItems() {
+    private List<Item> generateItems(String warehouseMane) {
         int itemsCount = random.nextInt(MAX_NUMBER_OF_ITEMS);
         List<Item> items = new ArrayList<>(itemsCount);
         for (int i = 0; i < itemsCount; i++) {
             String randomName = "" + CHARACTERS[random.nextInt(CHARACTERS.length)] + random.nextInt();
             int randomQuantity = random.nextInt(1000);
-            items.add(new Item(randomName, randomQuantity));
+            items.add(new Item(randomName, randomQuantity, warehouseMane));
         }
         return items;
     }
