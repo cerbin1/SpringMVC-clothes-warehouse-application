@@ -29,6 +29,11 @@ public class WarehouseController {
         return warehouseService.addWarehouse(warehouse);
     }
 
+    @DeleteMapping
+    public boolean deleteWarehouse(@RequestBody Warehouse warehouse) {
+        return warehouseService.deleteWarehouse(warehouse);
+    }
+
 /*
     @GetMapping("{warehouseName}/items")
     public List<Item> findItems(@PathVariable String warehouseName) {

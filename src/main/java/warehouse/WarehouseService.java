@@ -38,4 +38,12 @@ public class WarehouseService {
     public Warehouse addWarehouse(Warehouse warehouse) {
         return warehouseRepository.save(warehouse);
     }
+
+    public boolean deleteWarehouse(Warehouse warehouse) {
+        if (warehouseRepository.existsById(warehouse.getName())) {
+            warehouseRepository.delete(warehouse);
+            return true;
+        }
+        return false;
+    }
 }
