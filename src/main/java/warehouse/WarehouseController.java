@@ -1,30 +1,34 @@
 package warehouse;
 
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequestMapping("warehouses")
 @RestController
 public class WarehouseController {
-    private WarehouseRepository warehouseRepository;
+    private WarehouseService warehouseService;
 
-    public WarehouseController(WarehouseRepository warehouseRepository) {
-        this.warehouseRepository = warehouseRepository;
+    public WarehouseController(WarehouseService warehouseService) {
+        this.warehouseService = warehouseService;
     }
 
     @GetMapping
     public List<Warehouse> findAll() {
-        return warehouseRepository.findAll();
+        return warehouseService.getAllWarehouses();
     }
 
     @GetMapping("{warehouseName}")
     public Warehouse findOne(@PathVariable String warehouseName) {
-        return warehouseRepository.findOne(warehouseName);
+        return warehouseService.getWarehouse(warehouseName);
     }
 
+
+/*
     @GetMapping("{warehouseName}/items")
     public List<Item> findItems(@PathVariable String warehouseName) {
         return findOne(warehouseName).getItems();
@@ -33,7 +37,7 @@ public class WarehouseController {
     @GetMapping("{warehouseName}/items/{itemId:\\d+}")
     public Item findItemWithId(@PathVariable String warehouseName,
                                @PathVariable int itemId) {
-        return warehouseRepository
+        return warehouseService
                 .findOne(warehouseName)
                 .getItems()
                 .stream()
@@ -46,7 +50,7 @@ public class WarehouseController {
     @GetMapping("{warehouseName}/items/{itemName:[A-Z]-?\\d+}")
     public Item findItemWithName(@PathVariable String warehouseName,
                                  @PathVariable String itemName) {
-        return warehouseRepository
+        return warehouseService
                 .findOne(warehouseName)
                 .getItems()
                 .stream()
@@ -61,7 +65,7 @@ public class WarehouseController {
                         @RequestParam String itemName,
                         @RequestParam int itemQuantity) {
         Item newItem = new Item(itemName, itemQuantity);
-        Warehouse warehouse = warehouseRepository.findOne(warehouseName);
+        Warehouse warehouse = warehouseService.findOne(warehouseName);
         List<Item> items = warehouse.getItems();
         items.add(newItem);
         warehouse.setItems(items);
@@ -74,7 +78,7 @@ public class WarehouseController {
                                  @RequestParam String itemName,
                                  @RequestParam int itemQuantity) {
         Item newItem = new Item(itemId, itemName, itemQuantity);
-        List<Item> items = warehouseRepository.findOne(warehouseName).getItems();
+        List<Item> items = warehouseService.findOne(warehouseName).getItems();
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getId() == itemId) {
                 items.set(i, newItem);
@@ -88,7 +92,7 @@ public class WarehouseController {
     public Item deleteItemWithId(@PathVariable String warehouseName,
                                  @PathVariable int itemId
     ) {
-        Warehouse warehouse = warehouseRepository.findOne(warehouseName);
+        Warehouse warehouse = warehouseService.findOne(warehouseName);
         Item deletedItem = warehouse.getItemWithId(itemId);
         List<Item> items = warehouse
                 .getItems()
@@ -98,5 +102,5 @@ public class WarehouseController {
                 .collect(Collectors.toList());
         warehouse.setItems(items);
         return deletedItem;
-    }
+    }*/
 }

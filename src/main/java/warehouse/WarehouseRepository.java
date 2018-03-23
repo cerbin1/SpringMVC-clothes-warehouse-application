@@ -1,9 +1,7 @@
 package warehouse;
 
-import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
-public interface WarehouseRepository {
-    List<Warehouse> findAll();
+public interface WarehouseRepository extends CrudRepository<Warehouse, String> {
 
-    Warehouse findOne(String name);
 }
