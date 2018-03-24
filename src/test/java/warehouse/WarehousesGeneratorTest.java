@@ -15,6 +15,6 @@ public class WarehousesGeneratorTest {
         Warehouse warehouse = warehousesGenerator.generateWarehouse();
 
         // then
-        assertTrue(warehouse == null);
+        assertTrue(warehouse != null);
     }
 }
