@@ -2,7 +2,7 @@ package warehouse;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class WarehousesGeneratorTest {
 
@@ -15,6 +15,6 @@ public class WarehousesGeneratorTest {
         Warehouse warehouse = warehousesGenerator.generateWarehouse();
 
         // then
-        assertFalse(warehouse == null);
+        assertTrue(warehouse == null);
     }
 }
