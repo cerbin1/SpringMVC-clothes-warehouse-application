@@ -1,26 +1,33 @@
 package warehouse.domain;
 
 public class Item {
-    private static int nextId = 0;
-
-    private int id;
+    private String id;
     private String name;
-    private int quantity;
+    private long quantity;
+    private String unit;
+
+    public Item() {
+        super();
+    }
 
     public Item(String name, int quantity) {
-        this.id = getNextId();
         this.name = name;
         this.quantity = quantity;
     }
 
-    public Item(int id, String name, int quantity) {
+    public Item(String id, String name, int quantity) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
+
     }
 
-    public int getId() {
+    public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -31,15 +38,19 @@ public class Item {
         this.name = name;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
 
-    public static int getNextId() {
-        return nextId++;
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }
