@@ -1,4 +1,4 @@
-package warehouse;
+package warehouse.domain;
 
 public class Item {
     private static int nextId = 0;

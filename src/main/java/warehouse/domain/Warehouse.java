@@ -1,4 +1,4 @@
-package warehouse;
+package warehouse.domain;
 
 public class Warehouse {
     private String name;
