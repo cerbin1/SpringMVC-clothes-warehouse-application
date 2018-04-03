@@ -16,4 +16,9 @@ public class ItemServiceImplementation implements ItemService {
     public List<Item> getAllItems() {
         return itemRepository.getAllItems();
     }
+
+    @Override
+    public Item getItemById(String itemId) {
+        return itemRepository.getItemById(itemId);
+    }
 }

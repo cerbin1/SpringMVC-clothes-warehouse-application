@@ -24,6 +24,14 @@ public class InMemoryItemRepository implements ItemRepository {
         return jdbcTemplate.query(sql, params, new ItemMapper());
     }
 
+    @Override
+    public Item getItemById(String itemId) {
+        String sql = "SELECT * FROM ITEMS WHERE ID = :id";
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", itemId);
+        return jdbcTemplate.queryForObject(sql, params, new ItemMapper());
+    }
+
     private class ItemMapper implements RowMapper<Item> {
 
         @Override
