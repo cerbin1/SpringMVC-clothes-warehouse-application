@@ -1,10 +1,12 @@
 package warehouse.domain.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import warehouse.domain.Item;
+import warehouse.exception.ItemNotFoundException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +31,11 @@ public class InMemoryItemRepository implements ItemRepository {
         String sql = "SELECT * FROM ITEMS WHERE ID = :id";
         Map<String, Object> params = new HashMap<>();
         params.put("id", itemId);
-        return jdbcTemplate.queryForObject(sql, params, new ItemMapper());
+        try {
+            return jdbcTemplate.queryForObject(sql, params, new ItemMapper());
+        } catch (DataAccessException e) {
+            throw new ItemNotFoundException();
+        }
     }
 
     @Override
@@ -45,7 +51,11 @@ public class InMemoryItemRepository implements ItemRepository {
         String sql = "SELECT * FROM ITEMS WHERE NAME = :name";
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
-        return jdbcTemplate.query(sql, params, new ItemMapper());
+        try {
+            return jdbcTemplate.query(sql, params, new ItemMapper());
+        } catch (DataAccessException e) {
+            throw new ItemNotFoundException();
+        }
     }
 
     private class ItemMapper implements RowMapper<Item> {
