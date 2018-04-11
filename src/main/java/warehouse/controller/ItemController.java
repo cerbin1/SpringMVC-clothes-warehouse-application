@@ -22,7 +22,7 @@ public class ItemController {
         return itemService.getAllItems();
     }
 
-    @RequestMapping("items/{itemId}")
+    @RequestMapping("items/{itemId:[0-9]+}")
     public @ResponseBody
     Item getItemById(@PathVariable String itemId) {
         return itemService.getItemById(itemId);
