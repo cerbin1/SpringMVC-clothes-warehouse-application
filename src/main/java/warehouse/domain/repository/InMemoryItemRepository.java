@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import warehouse.domain.Item;
+import warehouse.exception.CategoryNotFoundException;
 import warehouse.exception.ItemNotFoundException;
 
 import java.sql.ResultSet;
@@ -43,7 +44,11 @@ public class InMemoryItemRepository implements ItemRepository {
         String sql = "SELECT * FROM ITEMS WHERE CATEGORY = :category";
         Map<String, Object> params = new HashMap<>();
         params.put("category", category);
-        return jdbcTemplate.query(sql, params, new ItemMapper());
+        try {
+            return jdbcTemplate.query(sql, params, new ItemMapper());
+        } catch (DataAccessException e) {
+            throw new CategoryNotFoundException();
+        }
     }
 
     @Override
