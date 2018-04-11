@@ -37,10 +37,13 @@ public class InMemoryItemRepository implements ItemRepository {
         @Override
         public Item mapRow(ResultSet resultSet, int i) throws SQLException {
             Item item = new Item();
-            item.setId(resultSet.getString("ID"));
+            item.setItemId(resultSet.getString("ID"));
             item.setName(resultSet.getString("NAME"));
+            item.setCategory(resultSet.getString("CATEGORY"));
+            item.setColor(resultSet.getString("COLOR"));
+            item.setSize(resultSet.getString("SIZE"));
             item.setQuantity(resultSet.getLong("QUANTITY"));
-            item.setUnit(resultSet.getString("UNIT"));
+            item.setArchived(resultSet.getBoolean("ARCHIVED"));
             return item;
         }
     }

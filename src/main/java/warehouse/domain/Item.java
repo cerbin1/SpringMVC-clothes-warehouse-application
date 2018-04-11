@@ -1,33 +1,24 @@
 package warehouse.domain;
 
 public class Item {
-    private String id;
+    private String itemId;
     private String name;
+    private String category;
+    private String color;
+    private String size;
     private long quantity;
-    private String unit;
+    private boolean archived;
 
     public Item() {
         super();
     }
 
-    public Item(String name, int quantity) {
-        this.name = name;
-        this.quantity = quantity;
+    public String getItemId() {
+        return itemId;
     }
 
-    public Item(String id, String name, int quantity) {
-        this.id = id;
-        this.name = name;
-        this.quantity = quantity;
-
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
     public String getName() {
@@ -38,6 +29,30 @@ public class Item {
         this.name = name;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
     public long getQuantity() {
         return quantity;
     }
@@ -46,11 +61,11 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public String getUnit() {
-        return unit;
+    public boolean isArchived() {
+        return archived;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setArchived(boolean archived) {
+        this.archived = archived;
     }
 }

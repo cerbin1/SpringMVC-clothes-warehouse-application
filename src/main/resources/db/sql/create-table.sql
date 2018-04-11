@@ -3,7 +3,10 @@ IF EXISTS;
 
 CREATE TABLE ITEMS (
   ID             VARCHAR(25) PRIMARY KEY,
-  NAME           VARCHAR(50),
+  NAME           VARCHAR(100),
+  CATEGORY       VARCHAR(50),
+  COLOR          VARCHAR(40),
+  SIZE           VARCHAR(10),
   QUANTITY       BIGINT,
-  UNIT           VARCHAR(15)
+  ARCHIVED       BOOLEAN
 );
