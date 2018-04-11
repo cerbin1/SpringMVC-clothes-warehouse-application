@@ -28,6 +28,12 @@ public class ItemController {
         return itemService.getItemById(itemId);
     }
 
+    @RequestMapping("items/{name:[a-zA-Z]+}")
+    @ResponseBody
+    public List<Item> getItemsByName(@PathVariable String name) {
+        return itemService.getItemsByName(name);
+    }
+
     @RequestMapping("items/category/{category}")
     @ResponseBody
     public List<Item> getItemByCategory(@PathVariable String category) {

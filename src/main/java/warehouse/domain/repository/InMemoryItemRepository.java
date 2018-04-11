@@ -40,6 +40,14 @@ public class InMemoryItemRepository implements ItemRepository {
         return jdbcTemplate.query(sql, params, new ItemMapper());
     }
 
+    @Override
+    public List<Item> getItemsByName(String name) {
+        String sql = "SELECT * FROM ITEMS WHERE NAME = :name";
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        return jdbcTemplate.query(sql, params, new ItemMapper());
+    }
+
     private class ItemMapper implements RowMapper<Item> {
         @Override
         public Item mapRow(ResultSet resultSet, int i) throws SQLException {

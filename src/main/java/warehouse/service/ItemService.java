@@ -10,4 +10,6 @@ public interface ItemService {
     Item getItemById(String itemId);
 
     List<Item> getItemsByCategory(String category);
+
+    List<Item> getItemsByName(String name);
 }
