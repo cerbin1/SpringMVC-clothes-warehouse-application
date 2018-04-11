@@ -8,4 +8,6 @@ public interface ItemService {
     List<Item> getAllItems();
 
     Item getItemById(String itemId);
+
+    List<Item> getItemsByCategory(String category);
 }

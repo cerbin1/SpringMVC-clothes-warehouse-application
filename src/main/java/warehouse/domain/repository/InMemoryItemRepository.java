@@ -32,8 +32,15 @@ public class InMemoryItemRepository implements ItemRepository {
         return jdbcTemplate.queryForObject(sql, params, new ItemMapper());
     }
 
-    private class ItemMapper implements RowMapper<Item> {
+    @Override
+    public List<Item> getItemsByCategory(String category) {
+        String sql = "SELECT * FROM ITEMS WHERE CATEGORY = :category";
+        Map<String, Object> params = new HashMap<>();
+        params.put("category", category);
+        return jdbcTemplate.query(sql, params, new ItemMapper());
+    }
 
+    private class ItemMapper implements RowMapper<Item> {
         @Override
         public Item mapRow(ResultSet resultSet, int i) throws SQLException {
             Item item = new Item();

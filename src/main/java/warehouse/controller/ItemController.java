@@ -28,5 +28,9 @@ public class ItemController {
         return itemService.getItemById(itemId);
     }
 
-
+    @RequestMapping("items/category/{category}")
+    @ResponseBody
+    public List<Item> getItemByCategory(@PathVariable String category) {
+        return itemService.getItemsByCategory(category);
+    }
 }
