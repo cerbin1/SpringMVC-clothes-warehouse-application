@@ -16,7 +16,7 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @RequestMapping
+    @RequestMapping("items")
     public @ResponseBody
     List<Item> getAllItems() {
         return itemService.getAllItems();
