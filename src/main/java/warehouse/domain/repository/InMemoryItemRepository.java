@@ -9,6 +9,7 @@ import warehouse.domain.Item;
 import warehouse.exception.CategoryNotFoundException;
 import warehouse.exception.ColorNotFoundException;
 import warehouse.exception.ItemNotFoundException;
+import warehouse.exception.SizeNotFoundException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -74,6 +75,26 @@ public class InMemoryItemRepository implements ItemRepository {
             throw new ColorNotFoundException();
         }
         return items;
+    }
+
+    @Override
+    public List<Item> getItemsBySize(String size) {
+        String sql = "SELECT * FROM ITEMS WHERE SIZE = :size";
+        Map<String, Object> params = new HashMap<>();
+        params.put("size", size);
+        List<Item> items = jdbcTemplate.query(sql, params, new ItemMapper());
+        if (items.isEmpty()) {
+            throw new SizeNotFoundException();
+        }
+        return items;
+    }
+
+    @Override
+    public List<Item> getItemsByArchived(boolean archived) {
+        String sql = "SELECT * FROM ITEMS WHERE ARCHIVED = :archived";
+        Map<String, Object> params = new HashMap<>();
+        params.put("archived", archived);
+        return jdbcTemplate.query(sql, params, new ItemMapper());
     }
 
     private class ItemMapper implements RowMapper<Item> {

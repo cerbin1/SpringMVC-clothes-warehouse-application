@@ -14,4 +14,8 @@ public interface ItemRepository {
     List<Item> getItemsByCategory(String category);
 
     List<Item> getItemsByColor(String color);
+
+    List<Item> getItemsBySize(String size);
+
+    List<Item> getItemsByArchived(boolean archived);
 }

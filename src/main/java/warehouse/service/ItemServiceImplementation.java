@@ -36,4 +36,14 @@ public class ItemServiceImplementation implements ItemService {
     public List<Item> getItemsByColor(String color) {
         return itemRepository.getItemsByColor(color);
     }
+
+    @Override
+    public List<Item> getItemsBySize(String size) {
+        return itemRepository.getItemsBySize(size);
+    }
+
+    @Override
+    public List<Item> getItemsByArchived(boolean archived) {
+        return itemRepository.getItemsByArchived(archived);
+    }
 }
