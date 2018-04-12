@@ -52,12 +52,12 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public List<Item> getItemsByName(String name) {
+    public Item getItemByName(String name) {
         String sql = "SELECT * FROM ITEMS WHERE NAME = :name";
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
         try {
-            return jdbcTemplate.query(sql, params, new ItemMapper());
+            return jdbcTemplate.queryForObject(sql, params, new ItemMapper());
         } catch (DataAccessException e) {
             throw new ItemNotFoundException();
         }

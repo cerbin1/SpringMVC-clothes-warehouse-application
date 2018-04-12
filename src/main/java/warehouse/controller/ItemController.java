@@ -29,8 +29,8 @@ public class ItemController {
 
     @RequestMapping("items/{name:[a-zA-Z]+}")
     @ResponseBody
-    public List<Item> getItemsByName(@PathVariable String name) {
-        return itemService.getItemsByName(name);
+    public Item getItemsByName(@PathVariable String name) {
+        return itemService.getItemByName(name);
     }
 
     @RequestMapping("items/category/{category}")

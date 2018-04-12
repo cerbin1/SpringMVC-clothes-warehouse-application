@@ -11,5 +11,5 @@ public interface ItemRepository {
 
     List<Item> getItemsByCategory(String category);
 
-    List<Item> getItemsByName(String name);
+    Item getItemByName(String name);
 }
