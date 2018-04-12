@@ -56,11 +56,11 @@ public class InMemoryItemRepository implements ItemRepository {
         String sql = "SELECT * FROM ITEMS WHERE CATEGORY = :category";
         Map<String, Object> params = new HashMap<>();
         params.put("category", category);
-        try {
-            return jdbcTemplate.query(sql, params, new ItemMapper());
-        } catch (DataAccessException e) {
+        List<Item> items = jdbcTemplate.query(sql, params, new ItemMapper());
+        if (items.isEmpty()) {
             throw new CategoryNotFoundException();
         }
+        return items;
     }
 
     private class ItemMapper implements RowMapper<Item> {
