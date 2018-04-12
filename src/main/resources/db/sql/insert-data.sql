@@ -1,6 +1,6 @@
 INSERT INTO ITEMS VALUES (1, 'Red Lace Midi', 'Dress', 'Red', 'M', 15, false);
 INSERT INTO ITEMS VALUES (2, 'Raw Fit And Flare', 'Dress', 'Black', 'XL', 1, false);
-INSERT INTO ITEMS VALUES (3, 'Molly Print', 'Dress', 'Green', 'S', 98, false);
+INSERT INTO ITEMS VALUES (3, 'Molly', 'Dress', 'Green', 'S', 98, false);
 INSERT INTO ITEMS VALUES (4, 'Navy Wrap Top', 'Shirt', 'Blue', 'XL', 23, false);
 INSERT INTO ITEMS VALUES (5, 'Navy Trailing Floral', 'Shirt', 'Purple', 'XXL', 0, false);
 INSERT INTO ITEMS VALUES (6, 'Ivory Songbird Print', 'Shirt', 'Grey', 'XL', 10, false);
