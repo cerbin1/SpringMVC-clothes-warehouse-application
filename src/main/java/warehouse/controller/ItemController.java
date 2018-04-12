@@ -38,4 +38,10 @@ public class ItemController {
     public List<Item> getItemByCategory(@PathVariable String category) {
         return itemService.getItemsByCategory(category);
     }
+
+    @RequestMapping("items/color/{color}")
+    @ResponseBody
+    public List<Item> getItemsByColor(@PathVariable String color) {
+        return itemService.getItemsByColor(color);
+    }
 }

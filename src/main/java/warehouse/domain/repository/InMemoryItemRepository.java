@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import warehouse.domain.Item;
 import warehouse.exception.CategoryNotFoundException;
+import warehouse.exception.ColorNotFoundException;
 import warehouse.exception.ItemNotFoundException;
 
 import java.sql.ResultSet;
@@ -59,6 +60,18 @@ public class InMemoryItemRepository implements ItemRepository {
         List<Item> items = jdbcTemplate.query(sql, params, new ItemMapper());
         if (items.isEmpty()) {
             throw new CategoryNotFoundException();
+        }
+        return items;
+    }
+
+    @Override
+    public List<Item> getItemsByColor(String color) {
+        String sql = "SELECT * FROM ITEMS WHERE COLOR = :color";
+        Map<String, Object> params = new HashMap<>();
+        params.put("color", color);
+        List<Item> items = jdbcTemplate.query(sql, params, new ItemMapper());
+        if (items.isEmpty()) {
+            throw new ColorNotFoundException();
         }
         return items;
     }
