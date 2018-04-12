@@ -10,7 +10,6 @@ import warehouse.service.ItemService;
 
 import java.util.List;
 
-@RequestMapping("warehouse")
 @Controller
 public class ItemController {
     @Autowired
