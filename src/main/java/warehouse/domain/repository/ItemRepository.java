@@ -9,7 +9,7 @@ public interface ItemRepository {
 
     Item getItemById(String itemId);
 
-    List<Item> getItemsByCategory(String category);
-
     Item getItemByName(String name);
+
+    List<Item> getItemsByCategory(String category);
 }

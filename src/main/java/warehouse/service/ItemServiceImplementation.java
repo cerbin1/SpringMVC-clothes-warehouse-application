@@ -23,12 +23,12 @@ public class ItemServiceImplementation implements ItemService {
     }
 
     @Override
-    public List<Item> getItemsByCategory(String category) {
-        return itemRepository.getItemsByCategory(category);
+    public Item getItemByName(String name) {
+        return itemRepository.getItemByName(name);
     }
 
     @Override
-    public Item getItemByName(String name) {
-        return itemRepository.getItemByName(name);
+    public List<Item> getItemsByCategory(String category) {
+        return itemRepository.getItemsByCategory(category);
     }
 }

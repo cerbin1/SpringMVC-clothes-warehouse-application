@@ -40,18 +40,6 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public List<Item> getItemsByCategory(String category) {
-        String sql = "SELECT * FROM ITEMS WHERE CATEGORY = :category";
-        Map<String, Object> params = new HashMap<>();
-        params.put("category", category);
-        try {
-            return jdbcTemplate.query(sql, params, new ItemMapper());
-        } catch (DataAccessException e) {
-            throw new CategoryNotFoundException();
-        }
-    }
-
-    @Override
     public Item getItemByName(String name) {
         String sql = "SELECT * FROM ITEMS WHERE NAME = :name";
         Map<String, Object> params = new HashMap<>();
@@ -60,6 +48,18 @@ public class InMemoryItemRepository implements ItemRepository {
             return jdbcTemplate.queryForObject(sql, params, new ItemMapper());
         } catch (DataAccessException e) {
             throw new ItemNotFoundException();
+        }
+    }
+
+    @Override
+    public List<Item> getItemsByCategory(String category) {
+        String sql = "SELECT * FROM ITEMS WHERE CATEGORY = :category";
+        Map<String, Object> params = new HashMap<>();
+        params.put("category", category);
+        try {
+            return jdbcTemplate.query(sql, params, new ItemMapper());
+        } catch (DataAccessException e) {
+            throw new CategoryNotFoundException();
         }
     }
 
