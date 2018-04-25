@@ -19,8 +19,12 @@ import java.util.Map;
 
 @Repository
 public class InMemoryItemRepository implements ItemRepository {
+    private final NamedParameterJdbcTemplate jdbcTemplate;
+
     @Autowired
-    private NamedParameterJdbcTemplate jdbcTemplate;
+    public InMemoryItemRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public List<Item> getAllItems() {

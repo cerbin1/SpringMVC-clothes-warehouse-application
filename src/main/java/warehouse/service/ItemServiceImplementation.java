@@ -9,8 +9,12 @@ import java.util.List;
 
 @Service
 public class ItemServiceImplementation implements ItemService {
+    private final ItemRepository itemRepository;
+
     @Autowired
-    private ItemRepository itemRepository;
+    public ItemServiceImplementation(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     @Override
     public List<Item> getAllItems() {

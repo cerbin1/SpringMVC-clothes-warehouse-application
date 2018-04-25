@@ -14,8 +14,12 @@ import java.util.List;
 
 @Controller
 public class ItemController {
+    private final ItemService itemService;
+
     @Autowired
-    private ItemService itemService;
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @RequestMapping("items")
     public @ResponseBody
