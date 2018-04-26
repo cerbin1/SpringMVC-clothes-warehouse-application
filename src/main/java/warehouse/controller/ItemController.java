@@ -62,6 +62,9 @@ public class ItemController {
 
     @PostMapping("items/add")
     public ResponseEntity createItem(@RequestBody Item newItem) {
+        if (newItem == null) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
         try {
             itemService.addItem(newItem);
         } catch (ItemWithIdExistException exception) {
