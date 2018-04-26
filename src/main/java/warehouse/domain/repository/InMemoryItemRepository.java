@@ -6,7 +6,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import warehouse.domain.Item;
-import warehouse.exception.*;
+import warehouse.exception.CategoryNotFoundException;
+import warehouse.exception.ColorNotFoundException;
+import warehouse.exception.ItemNotFoundException;
+import warehouse.exception.SizeNotFoundException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -103,10 +106,6 @@ public class InMemoryItemRepository implements ItemRepository {
         String sql = "INSERT INTO ITEMS VALUES (" +
                 ":id, :name, :category, :color, :size, :quantity, :archived)";
         Map<String, Object> params = new HashMap<>();
-        if (itemWithIdAlreadyExist(newItem.getItemId())) {
-            throw new ItemWithIdExistException();
-        }
-
         params.put("id", newItem.getItemId());
         params.put("name", newItem.getName());
         params.put("category", newItem.getCategory());
@@ -115,10 +114,6 @@ public class InMemoryItemRepository implements ItemRepository {
         params.put("quantity", newItem.getQuantity());
         params.put("archived", newItem.isArchived());
         jdbcTemplate.update(sql, params);
-    }
-
-    private boolean itemWithIdAlreadyExist(String itemId) {
-        return getAllItems().stream().filter(item -> item.getItemId().equals(itemId)).findAny().orElse(null) != null;
     }
 
     private class ItemMapper implements RowMapper<Item> {

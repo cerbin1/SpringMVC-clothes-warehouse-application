@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import warehouse.domain.Item;
 import warehouse.domain.repository.ItemRepository;
+import warehouse.exception.ItemWithIdExistException;
 
 import java.util.List;
 
@@ -53,6 +54,13 @@ public class ItemServiceImplementation implements ItemService {
 
     @Override
     public void addItem(Item newItem) {
+        if (itemWithIdAlreadyExist(newItem.getItemId())) {
+            throw new ItemWithIdExistException();
+        }
         itemRepository.addItem(newItem);
+    }
+
+    private boolean itemWithIdAlreadyExist(String itemId) {
+        return getAllItems().stream().filter(item -> item.getItemId().equals(itemId)).findAny().orElse(null) != null;
     }
 }
