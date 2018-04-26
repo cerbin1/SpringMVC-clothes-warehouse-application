@@ -54,13 +54,13 @@ public class ItemServiceImplementation implements ItemService {
 
     @Override
     public void addItem(Item newItem) {
-        if (itemWithIdAlreadyExist(newItem.getItemId())) {
+        if (itemWithIdExist(newItem.getItemId())) {
             throw new ItemWithIdExistException();
         }
         itemRepository.addItem(newItem);
     }
 
-    private boolean itemWithIdAlreadyExist(String itemId) {
+    private boolean itemWithIdExist(String itemId) {
         return getAllItems().stream().filter(item -> item.getItemId().equals(itemId)).findAny().orElse(null) != null;
     }
 }
