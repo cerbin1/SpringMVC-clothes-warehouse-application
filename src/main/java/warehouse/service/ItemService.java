@@ -18,4 +18,6 @@ public interface ItemService {
     List<Item> getItemsBySize(String size);
 
     List<Item> getItemsByArchived(boolean archived);
+
+    void addItem(Item newItem);
 }

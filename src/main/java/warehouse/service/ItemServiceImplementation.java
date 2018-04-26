@@ -50,4 +50,9 @@ public class ItemServiceImplementation implements ItemService {
     public List<Item> getItemsByArchived(boolean archived) {
         return itemRepository.getItemsByArchived(archived);
     }
+
+    @Override
+    public void addItem(Item newItem) {
+        itemRepository.addItem(newItem);
+    }
 }
