@@ -16,7 +16,7 @@ public class RootApplicationContextConfig {
     public DataSource dataSource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         return builder
-                .setType(EmbeddedDatabaseType.HSQL)
+                .setType(EmbeddedDatabaseType.H2)
                 .addScript("db/sql/create-table.sql")
                 .addScript("db/sql/insert-data.sql")
                 .build();
