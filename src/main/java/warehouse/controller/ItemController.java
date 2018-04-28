@@ -33,7 +33,7 @@ public class ItemController {
     }
 
     @GetMapping("items/{name:[a-zA-Z]+}")
-    public Item getItemsByName(@PathVariable String name) {
+    public Item getItemByName(@PathVariable String name) {
         return itemService.getItemByName(name);
     }
 
@@ -75,7 +75,8 @@ public class ItemController {
     }
 
     @PutMapping("items/{itemId:[0-9]+}")
-    public ResponseEntity update(@RequestBody Item item, @PathVariable String itemId) {
+    public ResponseEntity update(@RequestBody Item item,
+                                 @PathVariable String itemId) {
         if (item == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
