@@ -62,7 +62,7 @@ public class ItemController {
     }
 
     @PostMapping("items/add")
-    public ResponseEntity createItem(@RequestBody Item newItem) {
+    public ResponseEntity create(@RequestBody Item newItem) {
         if (newItem == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -75,7 +75,7 @@ public class ItemController {
     }
 
     @PutMapping("items/{itemId:[0-9]+}")
-    public ResponseEntity updateItem(@RequestBody Item item, @PathVariable String itemId) {
+    public ResponseEntity update(@RequestBody Item item, @PathVariable String itemId) {
         if (item == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
