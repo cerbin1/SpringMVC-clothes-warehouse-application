@@ -116,6 +116,26 @@ public class InMemoryItemRepository implements ItemRepository {
         jdbcTemplate.update(sql, params);
     }
 
+    @Override
+    public void updateItem(Item item, String itemId) {
+        String sql = "UPDATE ITEMS SET " +
+                "NAME=:name, " +
+                "CATEGORY=:category, " +
+                "COLOR=:color, " +
+                "SIZE=:size, " +
+                "QUANTITY=:quantity, " +
+                "ARCHIVED=:archived WHERE ID=:id";
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", itemId);
+        params.put("name", item.getName());
+        params.put("category", item.getCategory());
+        params.put("color", item.getColor());
+        params.put("size", item.getSize());
+        params.put("quantity", item.getQuantity());
+        params.put("archived", item.isArchived());
+        jdbcTemplate.update(sql, params);
+    }
+
     private class ItemMapper implements RowMapper<Item> {
         @Override
         public Item mapRow(ResultSet resultSet, int i) throws SQLException {

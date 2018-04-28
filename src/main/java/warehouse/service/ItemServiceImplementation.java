@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import warehouse.domain.Item;
 import warehouse.domain.repository.ItemRepository;
+import warehouse.exception.ItemNotFoundException;
 import warehouse.exception.ItemWithIdExistException;
 
 import java.util.List;
@@ -58,6 +59,15 @@ public class ItemServiceImplementation implements ItemService {
             throw new ItemWithIdExistException();
         }
         itemRepository.addItem(newItem);
+    }
+
+    @Override
+    public void updateItem(Item item, String itemId) {
+        if (itemWithIdExist(itemId)) {
+            itemRepository.updateItem(item, itemId);
+        } else {
+            throw new ItemNotFoundException();
+        }
     }
 
     private boolean itemWithIdExist(String itemId) {

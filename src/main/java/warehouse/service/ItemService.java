@@ -20,4 +20,6 @@ public interface ItemService {
     List<Item> getItemsByArchived(boolean archived);
 
     void addItem(Item newItem);
+
+    void updateItem(Item item, String itemId);
 }

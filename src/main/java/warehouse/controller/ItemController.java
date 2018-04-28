@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import util.StringUtils;
 import warehouse.domain.Item;
 import warehouse.exception.ArchivedNotFoundException;
+import warehouse.exception.ItemNotFoundException;
 import warehouse.exception.ItemWithIdExistException;
 import warehouse.service.ItemService;
 
@@ -71,5 +72,18 @@ public class ItemController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @PutMapping("items/{itemId:[0-9]+}")
+    public ResponseEntity updateItem(@RequestBody Item item, @PathVariable String itemId) {
+        if (item == null) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        try {
+            itemService.updateItem(item, itemId);
+        } catch (ItemNotFoundException exception) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
