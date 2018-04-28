@@ -61,7 +61,7 @@ public class ItemController {
         }
     }
 
-    @PostMapping("items/add")
+    @PostMapping("items")
     public ResponseEntity create(@RequestBody Item newItem) {
         if (newItem == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
