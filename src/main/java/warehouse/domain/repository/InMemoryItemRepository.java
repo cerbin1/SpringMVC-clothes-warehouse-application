@@ -136,6 +136,14 @@ public class InMemoryItemRepository implements ItemRepository {
         jdbcTemplate.update(sql, params);
     }
 
+    @Override
+    public void delete(String itemId) {
+        String sql = "DELETE FROM ITEMS WHERE ID=:id";
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", itemId);
+        jdbcTemplate.update(sql, params);
+    }
+
     private class ItemMapper implements RowMapper<Item> {
         @Override
         public Item mapRow(ResultSet resultSet, int i) throws SQLException {

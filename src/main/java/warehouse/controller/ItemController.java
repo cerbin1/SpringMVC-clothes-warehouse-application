@@ -87,4 +87,14 @@ public class ItemController {
         }
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @DeleteMapping("items/item/{itemId:[0-9]+}")
+    public ResponseEntity delete(@PathVariable String itemId) {
+        try {
+            itemService.delete(itemId);
+        } catch (ItemNotFoundException exception) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

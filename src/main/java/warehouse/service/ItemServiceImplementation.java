@@ -70,6 +70,15 @@ public class ItemServiceImplementation implements ItemService {
         }
     }
 
+    @Override
+    public void delete(String itemId) {
+        if (itemWithIdExist(itemId)) {
+            itemRepository.delete(itemId);
+        } else {
+            throw new ItemNotFoundException();
+        }
+    }
+
     private boolean itemWithIdExist(String itemId) {
         return getAllItems().stream().filter(item -> item.getItemId().equals(itemId)).findAny().orElse(null) != null;
     }
