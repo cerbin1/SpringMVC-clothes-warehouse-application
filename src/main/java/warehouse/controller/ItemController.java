@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import util.StringUtils;
 import warehouse.domain.Item;
 import warehouse.exception.ArchivedNotFoundException;
 import warehouse.exception.ItemNotFoundException;
@@ -53,11 +52,11 @@ public class ItemController {
     }
 
     @GetMapping("items/archived/{archived}")
-    public List<Item> getItemsByArchived(@PathVariable String archived) {
-        if (StringUtils.isBoolean(archived)) {
-            return itemService.getItemsByArchived(Boolean.parseBoolean(archived));
-        } else {
-            throw new ArchivedNotFoundException();
+    public ResponseEntity<List<Item>> getItemsByArchived(@PathVariable String archived) {
+        try {
+            return new ResponseEntity<>(itemService.getItemsByArchived(archived), HttpStatus.OK);
+        } catch (ArchivedNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

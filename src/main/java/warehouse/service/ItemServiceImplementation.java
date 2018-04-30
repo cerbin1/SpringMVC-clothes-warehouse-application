@@ -2,8 +2,10 @@ package warehouse.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import util.StringUtils;
 import warehouse.domain.Item;
 import warehouse.domain.repository.ItemRepository;
+import warehouse.exception.ArchivedNotFoundException;
 import warehouse.exception.ItemNotFoundException;
 import warehouse.exception.ItemWithIdExistException;
 
@@ -49,8 +51,11 @@ public class ItemServiceImplementation implements ItemService {
     }
 
     @Override
-    public List<Item> getItemsByArchived(boolean archived) {
-        return itemRepository.getItemsByArchived(archived);
+    public List<Item> getItemsByArchived(String archived) {
+        if (StringUtils.isBoolean(archived)) {
+            return itemRepository.getItemsByArchived(Boolean.parseBoolean(archived));
+        }
+        throw new ArchivedNotFoundException();
     }
 
     @Override
