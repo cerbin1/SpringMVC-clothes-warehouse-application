@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static warehouse.DatabaseNames.TABLE_ITEMS_NAME;
+
 @Repository
 public class InMemoryItemRepository implements ItemRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
@@ -28,14 +30,14 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public List<Item> getAllItems() {
-        String sql = "SELECT * FROM ITEMS";
+        String sql = "SELECT * FROM " + TABLE_ITEMS_NAME + " ";
         Map<String, Object> params = new HashMap<>();
         return jdbcTemplate.query(sql, params, new ItemMapper());
     }
 
     @Override
     public Item getItemById(String itemId) {
-        String sql = "SELECT * FROM ITEMS WHERE ID = :id";
+        String sql = "SELECT * FROM " + TABLE_ITEMS_NAME + "  WHERE ID = :id";
         Map<String, Object> params = new HashMap<>();
         params.put("id", itemId);
         try {
@@ -47,7 +49,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public Item getItemByName(String name) {
-        String sql = "SELECT * FROM ITEMS WHERE NAME = :name";
+        String sql = "SELECT * FROM " + TABLE_ITEMS_NAME + "  WHERE NAME = :name";
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
         try {
@@ -59,7 +61,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public List<Item> getItemsByCategory(String category) {
-        String sql = "SELECT * FROM ITEMS WHERE CATEGORY = :category";
+        String sql = "SELECT * FROM " + TABLE_ITEMS_NAME + "  WHERE CATEGORY = :category";
         Map<String, Object> params = new HashMap<>();
         params.put("category", category);
         List<Item> items = jdbcTemplate.query(sql, params, new ItemMapper());
@@ -71,7 +73,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public List<Item> getItemsByColor(String color) {
-        String sql = "SELECT * FROM ITEMS WHERE COLOR = :color";
+        String sql = "SELECT * FROM " + TABLE_ITEMS_NAME + "  WHERE COLOR = :color";
         Map<String, Object> params = new HashMap<>();
         params.put("color", color);
         List<Item> items = jdbcTemplate.query(sql, params, new ItemMapper());
@@ -83,7 +85,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public List<Item> getItemsBySize(String size) {
-        String sql = "SELECT * FROM ITEMS WHERE SIZE = :size";
+        String sql = "SELECT * FROM " + TABLE_ITEMS_NAME + "  WHERE SIZE = :size";
         Map<String, Object> params = new HashMap<>();
         params.put("size", size);
         List<Item> items = jdbcTemplate.query(sql, params, new ItemMapper());
@@ -95,7 +97,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public List<Item> getItemsByArchived(boolean archived) {
-        String sql = "SELECT * FROM ITEMS WHERE ARCHIVED = :archived";
+        String sql = "SELECT * FROM " + TABLE_ITEMS_NAME + "  WHERE ARCHIVED = :archived";
         Map<String, Object> params = new HashMap<>();
         params.put("archived", archived);
         return jdbcTemplate.query(sql, params, new ItemMapper());
@@ -103,7 +105,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public void addItem(Item newItem) {
-        String sql = "INSERT INTO ITEMS VALUES (" +
+        String sql = "INSERT INTO " + TABLE_ITEMS_NAME + "  VALUES (" +
                 ":id, :name, :category, :color, :size, :quantity, :archived)";
         Map<String, Object> params = new HashMap<>();
         params.put("id", newItem.getItemId());
@@ -118,7 +120,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public void updateItem(Item item, String itemId) {
-        String sql = "UPDATE ITEMS SET " +
+        String sql = "UPDATE " + TABLE_ITEMS_NAME + "  SET " +
                 "NAME=:name, " +
                 "CATEGORY=:category, " +
                 "COLOR=:color, " +
@@ -138,7 +140,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public void delete(String itemId) {
-        String sql = "DELETE FROM ITEMS WHERE ID=:id";
+        String sql = "DELETE FROM " + TABLE_ITEMS_NAME + "  WHERE ID=:id";
         Map<String, Object> params = new HashMap<>();
         params.put("id", itemId);
         jdbcTemplate.update(sql, params);
