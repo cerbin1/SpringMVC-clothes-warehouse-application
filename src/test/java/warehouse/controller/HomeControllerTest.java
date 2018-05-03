@@ -8,13 +8,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import warehouse.config.WebApplicationContextConfig;
 
-import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -37,16 +36,10 @@ public class HomeControllerTest {
         // given
         String welcomeMessage = "Warehouse application";
 
-        // when
-        MvcResult mvcResult = mockMvc
+        // then
+        mockMvc
                 .perform(get("/"))
                 .andExpect(status().isOk())
-                .andReturn();
-
-        // then
-        assertEquals(welcomeMessage,
-                mvcResult
-                        .getResponse()
-                        .getContentAsString());
+                .andExpect(jsonPath("$").value(welcomeMessage));
     }
 }
