@@ -13,3 +13,11 @@ INSERT INTO ITEMS VALUES (12, 'Soft Pleat Culotte', 'Trousers', 'Orange', 'XXXL'
 INSERT INTO ITEMS VALUES (13, 'Black Coated Skinny', 'Jeans', 'Black', 'XL', 89, false);
 INSERT INTO ITEMS VALUES (14, 'Dark Wash Zip Front Wide Leg ', 'Jeans', 'Blue', 'M', 51, false);
 INSERT INTO ITEMS VALUES (15, 'Black Coated Biker Jean', 'Jeans', 'Black', 'S', 5, false);
+
+INSERT INTO EMPLOYEES VALUES (1, 'John', 'Gefter');
+INSERT INTO EMPLOYEES VALUES (2, 'Eryn', 'Munter');
+INSERT INTO EMPLOYEES VALUES (3, 'Livvyy', 'Bruzzone');
+INSERT INTO EMPLOYEES VALUES (4, 'Gayleen', 'Bender');
+INSERT INTO EMPLOYEES VALUES (5, 'Benni', 'Nordstroem');
+INSERT INTO EMPLOYEES VALUES (6, 'Chrysler', 'Miletus');
+INSERT INTO EMPLOYEES VALUES (7, 'Gilly', 'Foladare');
