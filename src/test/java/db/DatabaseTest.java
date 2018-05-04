@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.jdbc.JdbcTestUtils.countRowsInTable;
 import static org.springframework.test.jdbc.JdbcTestUtils.deleteFromTables;
+import static warehouse.DatabaseNames.TABLE_NAME_EMPLOYEES;
 import static warehouse.DatabaseNames.TABLE_NAME_ITEMS;
 
 public class DatabaseTest {
@@ -30,20 +31,37 @@ public class DatabaseTest {
     }
 
     @Test
-    public void testDataAccess() {
-        int itemsCount = countRowsInTable(jdbcTemplate, TABLE_NAME_ITEMS);
+    public void testAccessToTableItems() {
+        int rowsInTable = countRowsInTable(jdbcTemplate, TABLE_NAME_ITEMS);
 
-        assertEquals(15, itemsCount);
+        assertEquals(15, rowsInTable);
     }
 
     @Test
-    public void shouldDeleteRows() {
+    public void testAccessToTableEmployees() {
+        int rowsInTable = countRowsInTable(jdbcTemplate, TABLE_NAME_EMPLOYEES);
+
+        assertEquals(7, rowsInTable);
+    }
+
+    @Test
+    public void shouldDeleteRowsInTableItems() {
         int deletedRows = deleteFromTables(jdbcTemplate, TABLE_NAME_ITEMS);
         int itemsCount = countRowsInTable(jdbcTemplate, TABLE_NAME_ITEMS);
 
         assertEquals(15, deletedRows);
         assertEquals(0, itemsCount);
     }
+
+    @Test
+    public void shouldDeleteRowsInTableEmployees() {
+        int deletedRows = deleteFromTables(jdbcTemplate, TABLE_NAME_EMPLOYEES);
+        int itemsCount = countRowsInTable(jdbcTemplate, TABLE_NAME_EMPLOYEES);
+
+        assertEquals(7, deletedRows);
+        assertEquals(0, itemsCount);
+    }
+
 
     @After
     public void tearDown() {
