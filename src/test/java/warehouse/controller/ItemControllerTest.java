@@ -1,17 +1,11 @@
 package warehouse.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -21,7 +15,6 @@ import org.springframework.web.context.WebApplicationContext;
 import warehouse.config.WebApplicationContextConfig;
 import warehouse.domain.Item;
 import warehouse.domain.repository.ItemRepository;
-import warehouse.service.ItemService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +33,8 @@ public class ItemControllerTest {
     private final List<Item> items = new ArrayList<>();
     @Autowired
     private WebApplicationContext webApplicationContext;
-    @Mock
-    private ItemService itemService;
     @Autowired
     private ItemRepository itemRepository;
-    private EmbeddedDatabase db;
-    private JdbcTemplate jdbcTemplate;
     private MockMvc mockMvc;
 
     private static String asJsonString(final Object o) {
@@ -60,13 +49,6 @@ public class ItemControllerTest {
     @Before
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        db = new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .generateUniqueName(true)
-                .addScript("db/sql/create-table.sql")
-                .build();
-
-        jdbcTemplate = new JdbcTemplate(db);
 
         addItemsToDatabase();
     }
@@ -345,11 +327,5 @@ public class ItemControllerTest {
     public void shouldReturnNotFoundStatusWhenItemWithIdToDeleteNotExist() throws Exception {
         mockMvc.perform(delete("/items/item/150"))
                 .andExpect(status().isNotFound());
-    }
-
-    @After
-    public void tearDown() {
-        db.shutdown();
-
     }
 }
