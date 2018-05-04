@@ -62,7 +62,6 @@ public class DatabaseTest {
         assertEquals(0, itemsCount);
     }
 
-
     @After
     public void tearDown() {
         db.shutdown();
