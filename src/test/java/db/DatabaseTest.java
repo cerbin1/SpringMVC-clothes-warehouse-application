@@ -11,7 +11,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.jdbc.JdbcTestUtils.countRowsInTable;
 import static org.springframework.test.jdbc.JdbcTestUtils.deleteFromTables;
-import static warehouse.DatabaseNames.TABLE_ITEMS_NAME;
+import static warehouse.DatabaseNames.TABLE_NAME_ITEMS;
 
 public class DatabaseTest {
     private EmbeddedDatabase db;
@@ -31,15 +31,15 @@ public class DatabaseTest {
 
     @Test
     public void testDataAccess() {
-        int itemsCount = countRowsInTable(jdbcTemplate, TABLE_ITEMS_NAME);
+        int itemsCount = countRowsInTable(jdbcTemplate, TABLE_NAME_ITEMS);
 
         assertEquals(15, itemsCount);
     }
 
     @Test
     public void shouldDeleteRows() {
-        int deletedRows = deleteFromTables(jdbcTemplate, TABLE_ITEMS_NAME);
-        int itemsCount = countRowsInTable(jdbcTemplate, TABLE_ITEMS_NAME);
+        int deletedRows = deleteFromTables(jdbcTemplate, TABLE_NAME_ITEMS);
+        int itemsCount = countRowsInTable(jdbcTemplate, TABLE_NAME_ITEMS);
 
         assertEquals(15, deletedRows);
         assertEquals(0, itemsCount);
