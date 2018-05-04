@@ -6,7 +6,7 @@ public class Item {
     private String category;
     private String color;
     private String size;
-    private long quantity;
+    private Long quantity;
     private boolean archived;
 
     public Item() {
@@ -53,7 +53,7 @@ public class Item {
         this.size = size;
     }
 
-    public long getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
