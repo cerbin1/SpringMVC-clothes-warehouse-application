@@ -85,6 +85,10 @@ public class ItemServiceImplementation implements ItemService {
     }
 
     private boolean itemWithIdExist(String itemId) {
-        return getAllItems().stream().filter(item -> item.getItemId().equals(itemId)).findAny().orElse(null) != null;
+        return getAllItems()
+                .stream()
+                .filter(item -> item.getItemId().equals(itemId))
+                .findAny()
+                .orElse(null) != null;
     }
 }
