@@ -31,7 +31,7 @@ public class ItemController {
         return itemService.getItemById(itemId);
     }
 
-    @GetMapping("/items/item/{name:[a-zA-Z]+}")
+    @GetMapping("/items/item/{name:[a-zA-Z]+(?:\\s[a-zA-Z]+)*}")
     public Item getItemByName(@PathVariable String name) {
         return itemService.getItemByName(name);
     }
@@ -68,7 +68,7 @@ public class ItemController {
         try {
             itemService.addItem(item);
         } catch (ItemWithIdExistException exception) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.CONFLICT);
         }
         return new ResponseEntity(HttpStatus.CREATED);
     }
