@@ -146,6 +146,12 @@ public class InMemoryItemRepository implements ItemRepository {
         jdbcTemplate.update(sql, params);
     }
 
+    @Override
+    public void deleteItems() {
+        String sql = "TRUNCATE TABLE " + TABLE_ITEMS_NAME + " ";
+        jdbcTemplate.update(sql, new HashMap<>());
+    }
+
     private class ItemMapper implements RowMapper<Item> {
         @Override
         public Item mapRow(ResultSet resultSet, int i) throws SQLException {
