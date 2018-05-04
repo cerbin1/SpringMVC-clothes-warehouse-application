@@ -30,7 +30,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public List<Item> getAllItems() {
-        String sql = "SELECT * FROM " + TABLE_NAME_ITEMS + " ";
+        String sql = "SELECT * FROM " + TABLE_NAME_ITEMS;
         Map<String, Object> params = new HashMap<>();
         return jdbcTemplate.query(sql, params, new ItemMapper());
     }
