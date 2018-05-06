@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -140,7 +140,7 @@ public class EmployeeControllerTest {
 
         mockMvc.perform(post("/employees")
                 .content(asJsonString(employee))
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(APPLICATION_JSON))
                 .andExpect(status().isCreated());
     }
 
@@ -154,7 +154,7 @@ public class EmployeeControllerTest {
     public void shouldReturnConflictStatusWhenTryingCreateEmployeeWithIdThatExist() throws Exception {
         mockMvc.perform(post("/employees")
                 .content(asJsonString(employees.get(0)))
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(APPLICATION_JSON))
                 .andExpect(status().isConflict());
     }
 }

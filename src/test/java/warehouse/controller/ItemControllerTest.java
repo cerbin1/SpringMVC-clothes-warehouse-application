@@ -47,7 +47,7 @@ public class ItemControllerTest {
     }
 
     @Before
-    public void setUp() {
+    public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
         addItemsToDatabase();

@@ -19,7 +19,7 @@ public class DatabaseTest {
     private JdbcTemplate jdbcTemplate;
 
     @Before
-    public void setUp() {
+    public void setup() {
         db = new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
                 .generateUniqueName(true)
