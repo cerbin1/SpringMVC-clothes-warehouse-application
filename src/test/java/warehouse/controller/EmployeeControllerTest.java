@@ -69,4 +69,25 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$[1].name").value(employees.get(1).getName()))
                 .andExpect(jsonPath("$[1].surname").value(employees.get(1).getSurname()));
     }
+
+    @Test
+    public void shouldReturn() {
+
+    }
+
+    @Test
+    public void shouldGetEmployeeById() throws Exception {
+        mockMvc.perform(get("/employees/employee/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isNotEmpty())
+                .andExpect(jsonPath("$.employeeId").value(employees.get(0).getEmployeeId()))
+                .andExpect(jsonPath("$.name").value(employees.get(0).getName()))
+                .andExpect(jsonPath("$.surname").value(employees.get(0).getSurname()));
+    }
+
+    @Test
+    public void shouldNotGetEmployeeById() throws Exception {
+        mockMvc.perform(get("/employees/employee/999"))
+                .andExpect(status().isNotFound());
+    }
 }
