@@ -71,11 +71,6 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void shouldReturn() {
-
-    }
-
-    @Test
     public void shouldGetEmployeeById() throws Exception {
         mockMvc.perform(get("/employees/employee/1"))
                 .andExpect(status().isOk())
@@ -88,6 +83,22 @@ public class EmployeeControllerTest {
     @Test
     public void shouldReturnNotFoundStatusWhenEmployeeByIdNotFound() throws Exception {
         mockMvc.perform(get("/employees/employee/999"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void shouldGetEmployeesByName() throws Exception {
+        mockMvc.perform(get("/employees/employee/John"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].employeeId").value(employees.get(0).getEmployeeId()))
+                .andExpect(jsonPath("$[0].name").value(employees.get(0).getName()))
+                .andExpect(jsonPath("$[0].surname").value(employees.get(0).getSurname()));
+    }
+
+    @Test
+    public void shouldReturnNotFoundStatusWhenEmployeesByNameNotFound() throws Exception {
+        mockMvc.perform(get("/employees/employee/Foo"))
                 .andExpect(status().isNotFound());
     }
 }

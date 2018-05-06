@@ -38,4 +38,15 @@ public class EmployeeController {
             return new ResponseEntity<>(NOT_FOUND);
         }
     }
+
+
+    @GetMapping("employees/employee/{name:[A-Z][a-z]+}")
+    public ResponseEntity<List<Employee>> getEmployeesByName(
+            @PathVariable String name) {
+        List<Employee> employees = employeeService.getEmployeesByName(name);
+        if (employees.isEmpty()) {
+            return new ResponseEntity<>(NOT_FOUND);
+        }
+        return new ResponseEntity<>(employees, OK);
+    }
 }
