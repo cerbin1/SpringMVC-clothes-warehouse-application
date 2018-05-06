@@ -42,7 +42,7 @@ public class EmployeeServiceImplementation implements EmployeeService {
     }
 
     @Override
-    public void addEmployee(Employee employee) {
-        employeeRepository.addEmployee(employee);
+    public void create(Employee employee) {
+        employeeRepository.create(employee);
     }
 }

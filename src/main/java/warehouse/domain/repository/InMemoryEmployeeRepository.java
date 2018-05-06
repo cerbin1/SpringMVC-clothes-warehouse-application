@@ -68,7 +68,10 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
     }
 
     @Override
-    public void addEmployee(Employee employee) {
+    public void create(Employee employee) {
+        if (employeeWithIdExist(employee.getEmployeeId())) {
+            throw new EmployeeAlreadyExistException();
+        }
         String sql = "INSERT INTO " + TABLE_NAME_EMPLOYEES + " VALUES (" +
                 ":id, :name, :surname)";
         Map<String, Object> params = new HashMap<>();
