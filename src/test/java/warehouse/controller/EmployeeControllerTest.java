@@ -86,7 +86,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void shouldNotGetEmployeeById() throws Exception {
+    public void shouldReturnNotFoundStatusWhenEmployeeByIdNotFound() throws Exception {
         mockMvc.perform(get("/employees/employee/999"))
                 .andExpect(status().isNotFound());
     }
