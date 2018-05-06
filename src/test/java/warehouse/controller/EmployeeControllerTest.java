@@ -101,4 +101,20 @@ public class EmployeeControllerTest {
         mockMvc.perform(get("/employees/employee/name/Foo"))
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    public void shouldGetEmployeesBySurname() throws Exception {
+        mockMvc.perform(get("/employees/employee/surname/Black"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].employeeId").value(employees.get(0).getEmployeeId()))
+                .andExpect(jsonPath("$[0].name").value(employees.get(0).getName()))
+                .andExpect(jsonPath("$[0].surname").value(employees.get(0).getSurname()));
+    }
+
+    @Test
+    public void shouldReturnNotFoundStatusWhenEmployeesBySurnameNotFound() throws Exception {
+        mockMvc.perform(get("/employees/employee/surname/Foo"))
+                .andExpect(status().isNotFound());
+    }
 }

@@ -48,4 +48,14 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(employees, OK);
     }
+
+    @GetMapping("employees/employee/surname/{employeeSurname:[A-Z][a-z]+(?:-|\\s)?[a-z]+}")
+    public ResponseEntity<List<Employee>> getEmployeesBySurname(
+            @PathVariable String employeeSurname) {
+        List<Employee> employees = employeeService.getEmployeesBySurname(employeeSurname);
+        if (employees.isEmpty()) {
+            return new ResponseEntity<>(NOT_FOUND);
+        }
+        return new ResponseEntity<>(employees, OK);
+    }
 }
