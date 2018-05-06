@@ -35,4 +35,14 @@ public class EmployeeServiceImplementation implements EmployeeService {
     public List<Employee> getEmployeesBySurname(String surname) {
         return employeeRepository.getEmployeesBySurname(surname);
     }
+
+    @Override
+    public void deleteAllEmployees() {
+        employeeRepository.deleteAllEmployees();
+    }
+
+    @Override
+    public void addEmployee(Employee employee) {
+        employeeRepository.addEmployee(employee);
+    }
 }

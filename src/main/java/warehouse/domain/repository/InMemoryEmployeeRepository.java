@@ -55,6 +55,23 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
         return jdbcTemplate.query(sql, params, new EmployeeMapper());
     }
 
+    @Override
+    public void deleteAllEmployees() {
+        String sql = "TRUNCATE TABLE " + TABLE_NAME_EMPLOYEES;
+        jdbcTemplate.update(sql, new HashMap<>());
+    }
+
+    @Override
+    public void addEmployee(Employee employee) {
+        String sql = "INSERT INTO " + TABLE_NAME_EMPLOYEES + " VALUES (" +
+                ":id, :name, :surname)";
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", employee.getEmployeeId());
+        params.put("name", employee.getName());
+        params.put("surname", employee.getSurname());
+        jdbcTemplate.update(sql, params);
+    }
+
     private final class EmployeeMapper implements RowMapper<Employee> {
         @Override
         public Employee mapRow(ResultSet resultSet, int i) throws SQLException {

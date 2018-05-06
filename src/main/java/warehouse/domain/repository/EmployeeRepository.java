@@ -12,4 +12,8 @@ public interface EmployeeRepository {
     List<Employee> getEmployeesByName(String name);
 
     List<Employee> getEmployeesBySurname(String surname);
+
+    void deleteAllEmployees();
+
+    void addEmployee(Employee employee);
 }
