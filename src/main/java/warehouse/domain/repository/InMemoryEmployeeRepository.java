@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import warehouse.domain.Employee;
+import warehouse.exception.EmployeeAlreadyExistException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -79,6 +80,17 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
         params.put("name", employee.getName());
         params.put("surname", employee.getSurname());
         jdbcTemplate.update(sql, params);
+    }
+
+    private boolean employeeWithIdExist(String employeeId) {
+        List<Employee> employees = getAllEmployees();
+        return employees
+                .stream()
+                .filter(employee -> employee
+                        .getEmployeeId()
+                        .equals(employeeId))
+                .findAny()
+                .orElse(null) != null;
     }
 
     private final class EmployeeMapper implements RowMapper<Employee> {

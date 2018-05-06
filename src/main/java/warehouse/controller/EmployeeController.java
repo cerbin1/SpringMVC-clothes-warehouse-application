@@ -3,16 +3,14 @@ package warehouse.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import warehouse.domain.Employee;
+import warehouse.exception.EmployeeAlreadyExistException;
 import warehouse.service.EmployeeService;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 public class EmployeeController {
@@ -57,5 +55,19 @@ public class EmployeeController {
             return new ResponseEntity<>(NOT_FOUND);
         }
         return new ResponseEntity<>(employees, OK);
+    }
+
+    @PostMapping("/employees")
+    public ResponseEntity createEmployee(
+            @RequestBody Employee employee) {
+        if (employee == null) {
+            return new ResponseEntity(BAD_REQUEST);
+        }
+        try {
+            employeeService.create(employee);
+        } catch (EmployeeAlreadyExistException exception) {
+            return new ResponseEntity(CONFLICT);
+        }
+        return new ResponseEntity(CREATED);
     }
 }

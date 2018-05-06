@@ -1,9 +1,11 @@
 package warehouse.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -19,6 +21,7 @@ import java.util.List;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -39,22 +42,13 @@ public class EmployeeControllerTest {
         addEmployees();
     }
 
-    private void addEmployees() {
-        employeeService.deleteAllEmployees();
-
-        Employee employee1 = new Employee();
-        employee1.setEmployeeId("1");
-        employee1.setName("John");
-        employee1.setSurname("Black");
-        employees.add(employee1);
-        employeeService.addEmployee(employee1);
-
-        Employee employee2 = new Employee();
-        employee2.setEmployeeId("2");
-        employee2.setName("Sandra");
-        employee2.setSurname("Cambridge");
-        employees.add(employee2);
-        employeeService.addEmployee(employee2);
+    private static String asJsonString(final Object o) {
+        try {
+            final ObjectMapper mapper = new ObjectMapper();
+            return mapper.writeValueAsString(o);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -116,5 +110,51 @@ public class EmployeeControllerTest {
     public void shouldReturnNotFoundStatusWhenEmployeesBySurnameNotFound() throws Exception {
         mockMvc.perform(get("/employees/employee/surname/Foo"))
                 .andExpect(status().isNotFound());
+    }
+
+    private void addEmployees() {
+        employeeService.deleteAllEmployees();
+
+        Employee employee1 = new Employee();
+        employee1.setEmployeeId("1");
+        employee1.setName("John");
+        employee1.setSurname("Black");
+        employees.add(employee1);
+        employeeService.create(employee1);
+
+        Employee employee2 = new Employee();
+        employee2.setEmployeeId("2");
+        employee2.setName("Sandra");
+        employee2.setSurname("Cambridge");
+        employees.add(employee2);
+        employeeService.create(employee2);
+    }
+
+    @Test
+    public void shouldCreateEmployee() throws Exception {
+        Employee employee = new Employee();
+        employee.setEmployeeId("15");
+        employee.setName("Roger");
+        employee.setSurname("Crank");
+        employees.add(employee);
+
+        mockMvc.perform(post("/employees")
+                .content(asJsonString(employee))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenPassingEmptyEmployeeToCreate() throws Exception {
+        mockMvc.perform(post("/employees"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void shouldReturnConflictStatusWhenTryingCreateEmployeeWithIdThatExist() throws Exception {
+        mockMvc.perform(post("/employees")
+                .content(asJsonString(employees.get(0)))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict());
     }
 }
