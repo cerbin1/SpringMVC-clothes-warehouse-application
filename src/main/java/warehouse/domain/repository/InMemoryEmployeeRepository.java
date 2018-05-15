@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import warehouse.domain.Employee;
 import warehouse.exception.EmployeeAlreadyExistException;
+import warehouse.exception.EmployeeNotFoundException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -80,6 +81,23 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
         params.put("name", employee.getName());
         params.put("surname", employee.getSurname());
         jdbcTemplate.update(sql, params);
+    }
+
+    @Override
+    public void update(String employeeId, Employee updatedEmployee) {
+        if (employeeWithIdExist(employeeId)) {
+            String sql = "UPDATE " + TABLE_NAME_EMPLOYEES + " SET " +
+                    "NAME=:name, " +
+                    "SURNAME=:surname " +
+                    "WHERE ID=:id";
+            Map<String, Object> params = new HashMap<>();
+            params.put("name", updatedEmployee.getName());
+            params.put("surname", updatedEmployee.getSurname());
+            params.put("id", employeeId);
+            jdbcTemplate.update(sql, params);
+        } else {
+            throw new EmployeeNotFoundException();
+        }
     }
 
     private boolean employeeWithIdExist(String employeeId) {

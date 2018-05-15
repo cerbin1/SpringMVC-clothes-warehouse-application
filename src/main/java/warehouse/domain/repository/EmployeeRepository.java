@@ -16,4 +16,6 @@ public interface EmployeeRepository {
     void deleteAllEmployees();
 
     void create(Employee employee);
+
+    void update(String employeeId, Employee updatedEmployee);
 }

@@ -20,8 +20,7 @@ import java.util.List;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -156,5 +155,50 @@ public class EmployeeControllerTest {
                 .content(asJsonString(employees.get(0)))
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void shouldUpdateEmployee() throws Exception {
+        // before
+        Employee employee = employees.get(0);
+        Employee updatedEmployee = new Employee();
+        updatedEmployee.setEmployeeId(employee.getEmployeeId());
+        updatedEmployee.setName("Crach");
+        updatedEmployee.setSurname("Abigard");
+
+        mockMvc.perform(get("/employees/employee/" + employee.getEmployeeId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isNotEmpty())
+                .andExpect(jsonPath("$.employeeId").value(employee.getEmployeeId()))
+                .andExpect(jsonPath("$.name").value(employee.getName()))
+                .andExpect(jsonPath("$.surname").value(employee.getSurname()));
+
+        // when
+        mockMvc.perform(put("/employees/employee/" + employee.getEmployeeId())
+                .content(asJsonString(updatedEmployee))
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        // then
+        mockMvc.perform(get("/employees/employee/" + employee.getEmployeeId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isNotEmpty())
+                .andExpect(jsonPath("$.employeeId").value(employee.getEmployeeId()))
+                .andExpect(jsonPath("$.name").value("Crach"))
+                .andExpect(jsonPath("$.surname").value("Abigard"));
+    }
+
+    @Test
+    public void shouldReturnBadExceptionWhenNotPassingEmployeeToUpdate() throws Exception {
+        mockMvc.perform(put("/employees/employee/1"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenUpdatingNotExistingEmployee() throws Exception {
+        mockMvc.perform(put("/employees/employee/123")
+                .content(asJsonString(employees.get(0)))
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }

@@ -45,4 +45,9 @@ public class EmployeeServiceImplementation implements EmployeeService {
     public void create(Employee employee) {
         employeeRepository.create(employee);
     }
+
+    @Override
+    public void updateEmployee(String employeeId, Employee updatedEmployee) {
+        employeeRepository.update(employeeId, updatedEmployee);
+    }
 }
