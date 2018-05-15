@@ -2,7 +2,6 @@ package warehouse.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import warehouse.domain.Employee;
@@ -78,14 +77,13 @@ public class EmployeeController {
             @PathVariable String employeeId,
             @RequestBody Employee updatedEmployee) {
         if (updatedEmployee == null) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(BAD_REQUEST);
         }
-//        return null;
         try {
             employeeService.updateEmployee(employeeId, updatedEmployee);
         } catch (EmployeeNotFoundException exception) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(NOT_FOUND);
         }
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(OK);
     }
 }
