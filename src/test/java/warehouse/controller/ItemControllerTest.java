@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -81,23 +80,25 @@ public class ItemControllerTest {
 
     @Test
     public void shouldGetItems() throws Exception {
+        Item item1 = items.get(0);
+        Item item2 = items.get(1);
         mockMvc.perform(get("/items"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].itemId").value(items.get(0).getItemId()))
-                .andExpect(jsonPath("$[0].name").value(items.get(0).getName()))
-                .andExpect(jsonPath("$[0].category").value(items.get(0).getCategory()))
-                .andExpect(jsonPath("$[0].color").value(items.get(0).getColor()))
-                .andExpect(jsonPath("$[0].size").value(items.get(0).getSize()))
-                .andExpect(jsonPath("$[0].quantity").value(items.get(0).getQuantity().intValue()))
-                .andExpect(jsonPath("$[0].archived").value(items.get(0).isArchived()))
-                .andExpect(jsonPath("$[1].itemId").value(items.get(1).getItemId()))
-                .andExpect(jsonPath("$[1].name").value(items.get(1).getName()))
-                .andExpect(jsonPath("$[1].category").value(items.get(1).getCategory()))
-                .andExpect(jsonPath("$[1].color").value(items.get(1).getColor()))
-                .andExpect(jsonPath("$[1].size").value(items.get(1).getSize()))
-                .andExpect(jsonPath("$[1].quantity").value(items.get(1).getQuantity().intValue()))
-                .andExpect(jsonPath("$[1].archived").value(items.get(1).isArchived()));
+                .andExpect(jsonPath("$[0].itemId").value(item1.getItemId()))
+                .andExpect(jsonPath("$[0].name").value(item1.getName()))
+                .andExpect(jsonPath("$[0].category").value(item1.getCategory()))
+                .andExpect(jsonPath("$[0].color").value(item1.getColor()))
+                .andExpect(jsonPath("$[0].size").value(item1.getSize()))
+                .andExpect(jsonPath("$[0].quantity").value(item1.getQuantity().intValue()))
+                .andExpect(jsonPath("$[0].archived").value(item1.isArchived()))
+                .andExpect(jsonPath("$[1].itemId").value(item2.getItemId()))
+                .andExpect(jsonPath("$[1].name").value(item2.getName()))
+                .andExpect(jsonPath("$[1].category").value(item2.getCategory()))
+                .andExpect(jsonPath("$[1].color").value(item2.getColor()))
+                .andExpect(jsonPath("$[1].size").value(item2.getSize()))
+                .andExpect(jsonPath("$[1].quantity").value(item2.getQuantity().intValue()))
+                .andExpect(jsonPath("$[1].archived").value(item2.isArchived()));
     }
 
     @Test
@@ -110,16 +111,17 @@ public class ItemControllerTest {
 
     @Test
     public void shouldGetItemById() throws Exception {
+        Item item = items.get(0);
         mockMvc.perform(get("/items/item/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isNotEmpty())
-                .andExpect(jsonPath("$.itemId").value(items.get(0).getItemId()))
-                .andExpect(jsonPath("$.name").value(items.get(0).getName()))
-                .andExpect(jsonPath("$.category").value(items.get(0).getCategory()))
-                .andExpect(jsonPath("$.color").value(items.get(0).getColor()))
-                .andExpect(jsonPath("$.size").value(items.get(0).getSize()))
-                .andExpect(jsonPath("$.quantity").value(items.get(0).getQuantity().intValue()))
-                .andExpect(jsonPath("$.archived").value(items.get(0).isArchived()));
+                .andExpect(jsonPath("$.itemId").value(item.getItemId()))
+                .andExpect(jsonPath("$.name").value(item.getName()))
+                .andExpect(jsonPath("$.category").value(item.getCategory()))
+                .andExpect(jsonPath("$.color").value(item.getColor()))
+                .andExpect(jsonPath("$.size").value(item.getSize()))
+                .andExpect(jsonPath("$.quantity").value(item.getQuantity().intValue()))
+                .andExpect(jsonPath("$.archived").value(item.isArchived()));
     }
 
     @Test
@@ -130,16 +132,17 @@ public class ItemControllerTest {
 
     @Test
     public void shouldGetItemByName() throws Exception {
+        Item item = items.get(0);
         mockMvc.perform(get("/items/item/Shirt A"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isNotEmpty())
-                .andExpect(jsonPath("$.itemId").value(items.get(0).getItemId()))
-                .andExpect(jsonPath("$.name").value(items.get(0).getName()))
-                .andExpect(jsonPath("$.category").value(items.get(0).getCategory()))
-                .andExpect(jsonPath("$.color").value(items.get(0).getColor()))
-                .andExpect(jsonPath("$.size").value(items.get(0).getSize()))
-                .andExpect(jsonPath("$.quantity").value(items.get(0).getQuantity().intValue()))
-                .andExpect(jsonPath("$.archived").value(items.get(0).isArchived()));
+                .andExpect(jsonPath("$.itemId").value(item.getItemId()))
+                .andExpect(jsonPath("$.name").value(item.getName()))
+                .andExpect(jsonPath("$.category").value(item.getCategory()))
+                .andExpect(jsonPath("$.color").value(item.getColor()))
+                .andExpect(jsonPath("$.size").value(item.getSize()))
+                .andExpect(jsonPath("$.quantity").value(item.getQuantity().intValue()))
+                .andExpect(jsonPath("$.archived").value(item.isArchived()));
     }
 
     @Test
@@ -150,15 +153,16 @@ public class ItemControllerTest {
 
     @Test
     public void shouldGetItemsByCategory() throws Exception {
+        Item item = items.get(0);
         mockMvc.perform(get("/items/category/Shirt"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name").value(items.get(0).getName()))
-                .andExpect(jsonPath("$[0].category").value(items.get(0).getCategory()))
-                .andExpect(jsonPath("$[0].color").value(items.get(0).getColor()))
-                .andExpect(jsonPath("$[0].size").value(items.get(0).getSize()))
-                .andExpect(jsonPath("$[0].quantity").value(items.get(0).getQuantity().intValue()))
-                .andExpect(jsonPath("$[0].archived").value(items.get(0).isArchived()));
+                .andExpect(jsonPath("$[0].name").value(item.getName()))
+                .andExpect(jsonPath("$[0].category").value(item.getCategory()))
+                .andExpect(jsonPath("$[0].color").value(item.getColor()))
+                .andExpect(jsonPath("$[0].size").value(item.getSize()))
+                .andExpect(jsonPath("$[0].quantity").value(item.getQuantity().intValue()))
+                .andExpect(jsonPath("$[0].archived").value(item.isArchived()));
     }
 
     @Test
@@ -169,15 +173,16 @@ public class ItemControllerTest {
 
     @Test
     public void shouldGetItemsByColor() throws Exception {
+        Item item = items.get(0);
         mockMvc.perform(get("/items/color/Black"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name").value(items.get(0).getName()))
-                .andExpect(jsonPath("$[0].category").value(items.get(0).getCategory()))
-                .andExpect(jsonPath("$[0].color").value(items.get(0).getColor()))
-                .andExpect(jsonPath("$[0].size").value(items.get(0).getSize()))
-                .andExpect(jsonPath("$[0].quantity").value(items.get(0).getQuantity().intValue()))
-                .andExpect(jsonPath("$[0].archived").value(items.get(0).isArchived()));
+                .andExpect(jsonPath("$[0].name").value(item.getName()))
+                .andExpect(jsonPath("$[0].category").value(item.getCategory()))
+                .andExpect(jsonPath("$[0].color").value(item.getColor()))
+                .andExpect(jsonPath("$[0].size").value(item.getSize()))
+                .andExpect(jsonPath("$[0].quantity").value(item.getQuantity().intValue()))
+                .andExpect(jsonPath("$[0].archived").value(item.isArchived()));
     }
 
     @Test
@@ -188,15 +193,16 @@ public class ItemControllerTest {
 
     @Test
     public void shouldGetItemsBySize() throws Exception {
+        Item item = items.get(0);
         mockMvc.perform(get("/items/size/XL"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name").value(items.get(0).getName()))
-                .andExpect(jsonPath("$[0].category").value(items.get(0).getCategory()))
-                .andExpect(jsonPath("$[0].color").value(items.get(0).getColor()))
-                .andExpect(jsonPath("$[0].size").value(items.get(0).getSize()))
-                .andExpect(jsonPath("$[0].quantity").value(items.get(0).getQuantity().intValue()))
-                .andExpect(jsonPath("$[0].archived").value(items.get(0).isArchived()));
+                .andExpect(jsonPath("$[0].name").value(item.getName()))
+                .andExpect(jsonPath("$[0].category").value(item.getCategory()))
+                .andExpect(jsonPath("$[0].color").value(item.getColor()))
+                .andExpect(jsonPath("$[0].size").value(item.getSize()))
+                .andExpect(jsonPath("$[0].quantity").value(item.getQuantity().intValue()))
+                .andExpect(jsonPath("$[0].archived").value(item.isArchived()));
     }
 
     @Test
@@ -207,15 +213,16 @@ public class ItemControllerTest {
 
     @Test
     public void shouldGetItemsByArchived() throws Exception {
+        Item item = items.get(1);
         mockMvc.perform(get("/items/archived/true"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name").value(items.get(1).getName()))
-                .andExpect(jsonPath("$[0].category").value(items.get(1).getCategory()))
-                .andExpect(jsonPath("$[0].color").value(items.get(1).getColor()))
-                .andExpect(jsonPath("$[0].size").value(items.get(1).getSize()))
-                .andExpect(jsonPath("$[0].quantity").value(items.get(1).getQuantity().intValue()))
-                .andExpect(jsonPath("$[0].archived").value(items.get(1).isArchived()));
+                .andExpect(jsonPath("$[0].name").value(item.getName()))
+                .andExpect(jsonPath("$[0].category").value(item.getCategory()))
+                .andExpect(jsonPath("$[0].color").value(item.getColor()))
+                .andExpect(jsonPath("$[0].size").value(item.getSize()))
+                .andExpect(jsonPath("$[0].quantity").value(item.getQuantity().intValue()))
+                .andExpect(jsonPath("$[0].archived").value(item.isArchived()));
     }
 
     @Test
@@ -311,11 +318,11 @@ public class ItemControllerTest {
     }
 
     @Test
-    public void shouldReturnNotFoundStatusWhenItemToUpdateNotExist() throws Exception {
+    public void shouldReturnNotFoundStatusWhenIdOfItemToUpdateNotExist() throws Exception {
         Item item = items.get(0);
         mockMvc.perform(put("/items/item/" + 150)
                 .content(asJsonString(item))
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
