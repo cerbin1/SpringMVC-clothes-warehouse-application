@@ -101,6 +101,14 @@ public class ItemControllerTest {
     }
 
     @Test
+    public void shouldGetEmptyItemList() throws Exception {
+        itemRepository.deleteItems();
+        mockMvc.perform(get("/items"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isEmpty());
+    }
+
+    @Test
     public void shouldGetItemById() throws Exception {
         mockMvc.perform(get("/items/item/1"))
                 .andExpect(status().isOk())
