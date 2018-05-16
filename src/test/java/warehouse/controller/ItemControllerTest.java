@@ -123,7 +123,7 @@ public class ItemControllerTest {
     }
 
     @Test
-    public void shouldNotGetItemById() throws Exception {
+    public void shouldGetItemNotFoundWhenTryingToGetItemWithUnexistingId() throws Exception {
         mockMvc.perform(get("/items/item/999"))
                 .andExpect(status().isNotFound());
     }
@@ -143,7 +143,7 @@ public class ItemControllerTest {
     }
 
     @Test
-    public void shouldNotGetItemByName() throws Exception {
+    public void shouldGetItemNotFoundWhenTryingToGetItemWithUnexistingName() throws Exception {
         mockMvc.perform(get("/items/item/foo"))
                 .andExpect(status().isNotFound());
     }
@@ -162,7 +162,7 @@ public class ItemControllerTest {
     }
 
     @Test
-    public void shouldNotGetItemsByCategory() throws Exception {
+    public void shouldGetNotFoundWhenTryingToGetUnexistingCategory() throws Exception {
         mockMvc.perform(get("/items/category/foo"))
                 .andExpect(status().isNotFound());
     }
@@ -181,7 +181,7 @@ public class ItemControllerTest {
     }
 
     @Test
-    public void shouldNotGetItemsByColor() throws Exception {
+    public void shouldGetNotFoundWhenTryingToGetUnexistingColor() throws Exception {
         mockMvc.perform(get("/items/color/foo"))
                 .andExpect(status().isNotFound());
     }
@@ -200,7 +200,7 @@ public class ItemControllerTest {
     }
 
     @Test
-    public void shouldNotGetItemsBySize() throws Exception {
+    public void shouldGetNotFoundWhenTryingToGetUnexistingSize() throws Exception {
         mockMvc.perform(get("/items/size/foo"))
                 .andExpect(status().isNotFound());
     }
