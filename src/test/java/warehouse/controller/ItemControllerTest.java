@@ -157,6 +157,7 @@ public class ItemControllerTest {
         mockMvc.perform(get("/items/category/Shirt"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].itemId").value(item.getItemId()))
                 .andExpect(jsonPath("$[0].name").value(item.getName()))
                 .andExpect(jsonPath("$[0].category").value(item.getCategory()))
                 .andExpect(jsonPath("$[0].color").value(item.getColor()))
