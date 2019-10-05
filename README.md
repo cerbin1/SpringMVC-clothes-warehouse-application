@@ -1,6 +1,6 @@
 [Still developing]
 
-Clothes warehouse REST application written in Java using SpringMVC framework.
+REST api for clothes warehouse written in Java using SpringMVC framework.
 
 Used technologies:
 
