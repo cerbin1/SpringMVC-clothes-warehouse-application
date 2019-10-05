@@ -1,4 +1,4 @@
-package warehouse.service;
+package warehouse.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +8,7 @@ import warehouse.domain.repository.ItemRepository;
 import warehouse.exception.ArchivedNotFoundException;
 import warehouse.exception.ItemNotFoundException;
 import warehouse.exception.ItemWithIdExistException;
+import warehouse.service.ItemService;
 
 import java.util.List;
 

@@ -1,9 +1,10 @@
-package warehouse.service;
+package warehouse.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import warehouse.domain.Employee;
 import warehouse.domain.repository.EmployeeRepository;
+import warehouse.service.EmployeeService;
 
 import java.util.List;
 
